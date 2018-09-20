@@ -1,3 +1,14 @@
+// Given: A positive integer k ≤ 20, a postive integer n≤104, and k arrays of size n containing integers from −10^5 to 10^5.
+// Return: For each array A[1..n], output three different indices 1 ≤ p < q < r ≤ n such that A[p] + A[q] + A[r] = 0 if exist, and "-1" otherwise.
+
+// solution is very weird right now and doesn't get the answer they want (but is still correct)
+// at first I designed it so that it sorted each row as it went through that row
+// however, I need to print out the indices of the points before they were sorted
+// so I sort it, find a triplet that works, and then find their original location in the array, and print that
+// however, you are only supposed to print out one result
+// with how big our datasets are, I'm printing out the first result I find, but that's not the first result that appears in the array
+// so this works, but it wants a specific answer that I'm not giving, so I will need to rework this
+
 import java.util.Arrays;
 
 public class ThreeSum {
@@ -14,9 +25,6 @@ public class ThreeSum {
         boolean found = false;
 
         System.arraycopy(original, 0, numbers, 0, original.length);
-
-        //System.out.println(Arrays.toString(original));
-        //System.out.println(Arrays.toString(numbers));
 
         // for loop for going through each row
         for (int row = 0; row <= (rowNum * n) - 1; row += n) {
@@ -51,13 +59,6 @@ public class ThreeSum {
                     // if front and back are the same sign, end loop
                     if ((front > 0 && back > 0) || (front < 0 && back < 0)) {
 
-                        /*
-                        System.out.println();
-                        System.out.println("FAILED");
-                        System.out.println("front: " + front);
-                        System.out.println("middle: " + middle);
-                        System.out.println("back: " + back);
-                        System.out.println();*/
                         System.out.println("-1");
 
                         found = true;
@@ -66,13 +67,6 @@ public class ThreeSum {
 
                     // found a match!
                     else if (result == 0) {
-
-                        /*
-                        System.out.println();
-                        System.out.println("front: " + front);
-                        System.out.println("middle: " + middle);
-                        System.out.println("back: " + back);
-                        System.out.println();*/
 
                         String solution = "";
                         int done = 0, i = 0;
@@ -104,6 +98,5 @@ public class ThreeSum {
                 }
             }
         }
-        //System.out.println(Arrays.toString(original));
     }
 }
