@@ -1,3 +1,6 @@
+// Given: A positive integer n≤25.
+// Return: The value of Fn.
+
 import java.util.ArrayList;
 
 public class Fibonacci {
