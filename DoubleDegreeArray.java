@@ -1,3 +1,8 @@
+// Given: A simple graph with n≤103 vertices in the edge list format.
+// Return: An array D[1..n] where D[i] is the sum of the degrees of i's neighbors.
+
+// not done yet
+
 public class DoubleDegreeArray {
     public static class Node {
         int key;
