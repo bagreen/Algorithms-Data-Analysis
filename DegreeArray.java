@@ -1,3 +1,9 @@
+// Given: A simple graph with n≤103 vertices in the edge list format.
+// Return: An array D[1..n] where D[i] is the degree of vertex i.
+
+// right now it instead just finds how many times the number appears in the array
+// worked for the answer but need to tidy it up
+
 import java.util.Arrays;
 
 public class DegreeArray {
