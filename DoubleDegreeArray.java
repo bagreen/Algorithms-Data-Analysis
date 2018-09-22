@@ -1,43 +1,42 @@
 // Given: A simple graph with n≤103 vertices in the edge list format.
 // Return: An array D[1..n] where D[i] is the sum of the degrees of i's neighbors.
 
-// not done yet
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class DoubleDegreeArray {
-    public static class Node {
-        int key;
-        Node next;
-
-        Node (int key, Node next) {
-            this.key = key;
-            this.next = next;
-        }
-    }
     public static void main(String[] args) {
         // adding file
-        In in = new In("rosalind_deg(1).txt");
+        In in = new In("rosalind_ddeg.txt");
+        int points = in.readInt(), lines = in.readInt();
 
-        String firstLine = in.readLine();
-        // input is everything left over in file
-        String data = in.readAll();
+        // numbers[] is everything left over in file
+        int[] numbers = in.readAllInts();
 
+        // neighbors[][] is a list of each number's neighbor
+        int[][] neighbors = new int[points][points + 1];
 
-        String[] pointsLines = firstLine.split(" ");
+        // adds degrees and neighbors
+        for (int i = 0; i <= numbers.length - 1; i += 2) {
+            // adds neighbor values and what they are
+            neighbors[numbers[i] - 1][numbers[i + 1] - 1] = numbers[i + 1];
+            neighbors[numbers[i + 1] - 1][numbers[i] - 1] = numbers[i];
 
-        int pointNum = Integer.parseInt(pointsLines[0]);
-        int lineNum = Integer.parseInt(pointsLines[1]);
+            // changes degree at end of row
+            neighbors[numbers[i] - 1][points]--;
+            neighbors[numbers[i + 1] - 1][points]--;
+        }
 
-        System.out.println("points: " + pointNum);
-        System.out.println("lines: " + lineNum);
+        // finds neighbors and sum
+        for (int[] j : neighbors) {
+            int sum = 0;
 
-        String[] lines = data.split("\n");
-
-        for (String s : lines) {
-            String[] lineArray = s.split(" ");
-            int firstNum = Integer.parseInt(lineArray[0]);
-            int secondNum = Integer.parseInt(lineArray[1]);
-
-            //Node list = new Node()
+            for (int k : j) {
+                if (k >= 1) {
+                    sum -= neighbors[k - 1][points];
+                }
+            }
+            System.out.print(sum + " ");
         }
     }
 }
