@@ -1,49 +1,30 @@
-// Given: A simple graph with n≤103 vertices in the edge list format.
+// Given: A simple graph with n≤10^3 vertices in the edge list format.
 // Return: An array D[1..n] where D[i] is the degree of vertex i.
 
 // right now it instead just finds how many times the number appears in the array
-// worked for the answer but need to tidy it up
+// worked for the answer
 
 import java.util.Arrays;
 
 public class DegreeArray {
     public static void main(String[] args) {
         // adding file
-        In in = new In("rosalind_deg(2).txt");
-        String firstLine = in.readLine();
+        In in = new In("test.txt");
 
-        // data is everything left over in file
-        String data = in.readAll();
+        // need to make lineNum to make sure it doesn't get in the data... how can we fix?
+        int pointNum = in.readInt(), lineNum = in.readInt();
 
-        // fix end of line character for unix/windows
-        data = data.replace("\n", " ").replace("\r", " ");
+        // numbers[] is everything left over in file
+        int[] numbers = in.readAllInts();
 
-        String[] stringNumbers = data.split(" ");
-        String[] pointsLines = firstLine.split(" ");
-
-        int pointNum = Integer.parseInt(pointsLines[0]);
-        int lineNum = Integer.parseInt(pointsLines[1]);
-
-
-        // need this because you can't change a String[] to an int[]
-        int[] numbers = new int[stringNumbers.length];
-
-        // add stringNumbers values to numbers
-        for (int i = 0; i < stringNumbers.length; i++) {
-            numbers[i] = Integer.parseInt(stringNumbers[i]);
-        }
-
-        // finds how much of each value there is
+        // make new array to put counted numbers
         int[] counted = new int[pointNum];
 
-        for (int j : numbers) {
-            counted[j - 1]++;
+        // adds counted numbers
+        for (int i : numbers) {
+            counted[i - 1]++;
         }
 
-        // printing
-        for (int k : counted) {
-            if (k != 0) System.out.print(k + " ");
-        }
-        System.out.println();
+        System.out.println(Arrays.toString(counted).replaceAll("[\\[\\],]", ""));
     }
 }
