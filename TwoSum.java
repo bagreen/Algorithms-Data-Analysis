@@ -1,48 +1,42 @@
-// Given: A positive integer k ≤ 20, a positive integer n ≤ 10^4, and k arrays of size n containing integers from −10^5 to 10^5.
-// Return: For each array A[1..n], output two different indices 1 ≤ p < q ≤ n such that A[p] = −A[q] if exist, and "-1" otherwise.
-
 import java.util.Arrays;
 
 public class TwoSum {
     public static void main(String[] args) {
         // adding file
-        In in = new In("rosalind_2sum.txt");
+        In in = new In("2sumtest.txt");
         int rows = in.readInt();
         int n = in.readInt();
 
         int[] numbers = in.readAllInts();
 
-        String answer = "";
-
-        boolean found = false;
-
         // for loop for going through each row
         for (int i = 0; i < numbers.length - 1; i += n) {
 
-            // for loop for iterating through row
-            for (int j = 1; j < n; j++) {
-
-                if (found) {
-                    found = false;
+            int j = 1;
+            int k = 0;
+            while (j < n) {
+                System.out.println("j: " + j);
+                System.out.println("k: " + k);
+                if (numbers[i + j] == -numbers[i + k]) {
+                    System.out.println((k + 1) + " " + (j + 1));
+                    System.out.println();
                     break;
                 }
-
-                // for loop for looking back at the row
-                for (int k = -1; k + j >= 0; k--) {
-
-                    if (numbers[i + j] == -numbers[i + j + k]) {
-                        answer += Integer.toString(j + k + 1) + " " + Integer.toString(j + 1) + "\n";
-
-                        found = true;
-                        break;
-
-                    }
-                    else if (k + j == 0 && j == n - 1) {
-                        answer += "-1\n";
-                    }
+                else if (k + j == j && j == n - 1) {
+                    System.out.println("-1");
+                    System.out.println();
+                    break;
                 }
+                else if (k > 0) {
+                    k--;
+                }
+                else if (k == 0) {
+                    j++;
+                    k = j - 1;
+                }
+
+                System.out.println();
             }
         }
-        System.out.println(answer);
     }
 }

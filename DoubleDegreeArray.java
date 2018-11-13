@@ -1,13 +1,7 @@
-// Given: A simple graph with n≤103 vertices in the edge list format.
-// Return: An array D[1..n] where D[i] is the sum of the degrees of i's neighbors.
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 public class DoubleDegreeArray {
     public static void main(String[] args) {
         // adding file
-        In in = new In("rosalind_ddeg.txt");
+        In in = new In("RealTests/rosalind_ddeg.txt");
         int points = in.readInt(), lines = in.readInt();
 
         // numbers[] is everything left over in file

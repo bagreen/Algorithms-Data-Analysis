@@ -1,55 +1,34 @@
+import edu.princeton.cs.algs4.Bipartite;
+import edu.princeton.cs.algs4.Graph;
+
 public class TestingBipartiteness {
-    static class Node {
-        int key;
-        boolean visited;
-        java.util.ArrayList<Node> neighbors;
-        int bipartite;
+    public static void main(String[] args) {
+        // input: k graphs, then graphs
+        In in = new In("Resources/RealTests/rosalind_bip(2).txt");
 
-        Node(int key) {
-            this.key = key;
-            this.visited = false;
-            this.neighbors = new java.util.ArrayList<>();
-            this.bipartite = 0;
-        }
-    }
-    private static String traverse(Node node, int integrate) {
-        node.visited = true;
-        node.bipartite = integrate * -1;
-        String answer = "";
-        for (Node i : node.neighbors) {
-            if (i.bipartite == node.bipartite) {
-                answer = "-1";
-            }
-            else if (!i.visited) {
-                i.neighbors.remove(node);
-                traverse(i, integrate * -1);
-            }
-        }
-        return answer;
-    }
-    public static void main(String[] args) throws java.io.IOException {
-        java.io.File file = new java.io.File("Resources/rosalind_bip.txt");
-        java.util.Scanner in = new java.util.Scanner(file);
+        int graphNum = in.readInt();
 
-        int graphNum = in.nextInt();
+        // loop for all graphs
+        for (int i = 0; i < graphNum; i++) {
+            int vertices = in.readInt();
+            int edges = in.readInt();
 
-        for (int graph = 0; graph < graphNum; graph++) {
-            int pointNum = in.nextInt(), lineNum = in.nextInt();
-            Node[] points = new Node[pointNum];
+            Graph graph = new Graph(vertices);
 
-            for (int i = 0; i < pointNum; i++) {
-                points[i] = new Node(i);
+            for (int j = 0; j < edges; j++) {
+                int vertex1 = in.readInt() - 1;
+                int vertex2 = in.readInt() - 1;
+
+                graph.addEdge(vertex1, vertex2);
             }
 
-            for (int j = 0; j < lineNum; j++) {
-                int first = in.nextInt() - 1, second = in.nextInt() - 1;
-                points[first].neighbors.add(points[second]);
-                points[second].neighbors.add(points[first]);
+            Bipartite bipartite = new Bipartite(graph);
+            if (bipartite.isBipartite()) {
+                System.out.print("1 ");
             }
-
-            String answer = traverse(points[1], 1);
-            if (!answer.equals("-1")) answer = "1";
-            System.out.print(answer + " ");
+            else {
+                System.out.print("-1 ");
+            }
         }
     }
 }
